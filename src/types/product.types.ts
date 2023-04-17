@@ -54,6 +54,8 @@ export interface IProduct {
     username: string;
     __v: number;
   }
+  
+  
 
   export interface IData {
     address: any;
@@ -71,8 +73,12 @@ export interface IProduct {
    distance: number;
   }
 
-  // export interface IAnswer {
-  //   firstUser: IDistance;
-  //   secondUser: IDistance;
-  //   distance: string;
-  //  }
+  export interface IGrouppedArr {
+    category: string;
+    products: {
+     title: string,
+     price: number,
+     length: number
+    }
+    sum: number;
+   }
