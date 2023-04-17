@@ -26,7 +26,6 @@ const sumCarts = (data: any, products: IProduct[]) => {
 }
 
 export const findThisUserCart = (data: any, products: IProduct[], users: any) => {
-  console.log("data:",data, "pruducts:", products)
     const summedCarts = sumCarts(data, products)
     const highestSum = Math.max(...summedCarts.map((obj) => obj.sum))
     const tempCart = summedCarts.find((cart: ISumCarts) => {
@@ -37,11 +36,10 @@ export const findThisUserCart = (data: any, products: IProduct[], users: any) =>
       if(cart.id === tempCart?.id) return cart
     })
     const cartOwner = users.find((user: IUser) => {
-      console.log(users)
       if(user.id === cartWithHighestVal.userId) 
         return `${user.name.firstname} ${user.name.lastname}`
        
-    })
+    }) 
     const cartWithUser = {
       name: `${cartOwner.name.firstname} ${cartOwner.name.lastname}`,
       sum: tempCart?.sum
