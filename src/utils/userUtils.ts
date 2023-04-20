@@ -1,10 +1,10 @@
 import { GeoPosition } from "geo-position.ts"
-import { IData, IDistance, } from "../types/product.types"
+import { IDistance, IUser, IUserLoc, IAnswer } from "../types/product.types"
 
-export const getHighestDistance = (data: IData[]) => {
+export const getHighestDistance = (data: IUser[]) => {
     // krok 1 bierzemy userow z api i pushujemy obiekt z lat, long, id
-    let arrOfUsersLocation: any[] = []
-    data.map((user: IData) => {
+    let arrOfUsersLocation: IUserLoc[] = []
+    data.map((user: IUser) => {
         arrOfUsersLocation.push({
             lat: +user.address.geolocation.lat,
             long: +user.address.geolocation.long,
@@ -28,18 +28,17 @@ export const getHighestDistance = (data: IData[]) => {
         }
     })
     // krok 3 znajdujemy najwiekszy dystans
-    const highestDist = Math.max(...distancesArr.map((el: any) => el.distance))
+    const highestDist = Math.max(...distancesArr.map((el: IDistance) => el.distance))
     
     // krok 4 znajdujemy ten dystans w tablicy i znajdujemy wtedy userow z najwiekszym dystansem
-    let answer: any[] = []
-    distancesArr.find((el: any) => {
+    let answer: IAnswer[] = []
+    distancesArr.find((el: IDistance) => {
         if(el.distance === highestDist) {
-            if(!answer.some((obj: any) => el.firstName === obj.firstName)){
+            if(!answer.some((obj: IAnswer) => el.firstUser.toString() === obj.firstUser.firstname)){
                 answer.push({
                     firstUser: findUserById(data, el.firstUser),
                     secondUser: findUserById(data, el.secondUser),
                     distance: `${el.distance}m / ${el.distance / 1000}km`
-                   
                 })
               
             } 
@@ -48,8 +47,8 @@ export const getHighestDistance = (data: IData[]) => {
     return answer
 }
 
-const findUserById = (usersData: any, id: number) => {
-    const thisUser = usersData.find((user: any) => {
+const findUserById = (usersData: IUser[], id: number) => {
+    const thisUser = usersData.find((user: IUser) => {
         return user.id === id
     })
     return thisUser?.name
