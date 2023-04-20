@@ -72,13 +72,26 @@ export interface IProduct {
    secondUser: number;
    distance: number;
   }
+  
 
-  export interface IGrouppedArr {
+  export interface IAnswer {
+    firstUser: IName;
+   secondUser: IName;
+   distance: string;
+  }
+
+  export interface IGroupped {
     category: string;
-    products: {
+    products?: {
      title: string,
      price: number,
      length: number
-    }
-    sum: number;
+    } | unknown;
+    sum?: number;
+   }
+
+   export interface IUserLoc {
+    lat: number;
+    long: number;
+    id: number;
    }

@@ -4,11 +4,7 @@ import { ISumCarts } from "../types/product.types";
 import { ICart } from "../types/product.types";
 import { IUser } from "../types/product.types";
 
-
-
-
-
-const sumCarts = (data: any, products: IProduct[]) => {
+const sumCarts = (data: ICart[], products: IProduct[]) => {
     const carts: ISumCarts[] = [];
     data.map((cart: ICart) => {
         let tempArr = [];
@@ -25,7 +21,7 @@ const sumCarts = (data: any, products: IProduct[]) => {
     return carts
 }
 
-export const findThisUserCart = (data: any, products: IProduct[], users: any) => {
+export const findThisUserCart = (data: ICart[], products: IProduct[], users: IUser[]) => {
     const summedCarts = sumCarts(data, products)
     const highestSum = Math.max(...summedCarts.map((obj) => obj.sum))
     const tempCart = summedCarts.find((cart: ISumCarts) => {
